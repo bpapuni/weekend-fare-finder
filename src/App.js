@@ -1,24 +1,42 @@
-import logo from './logo.svg';
 import './App.css';
+import { useState, useEffect } from 'react';
+import SelectAirport from './components/SelectAirport';
 
 function App() {
+  const [airports, setAirports] = useState({
+    outbound: '',
+    return: '',
+  });
+  const [results, setResults] = useState('');
+
+  const selectAirport = (e, type) => {
+    setAirports({ ...airports, [type]: e.target.value });
+  };
+
+  useEffect(() => {
+    if (airports.outbound === '' || airports.return === '') return;
+
+    // fetch(`/api/v1/fares/${airports.outbound}/${airports.return}`)
+    // .then((res) => {
+    //   return res.text();
+    // })
+    // .then((data) => {
+    //   const formattedText = data.replace(/\\n/g, '<br>').replace(/"/g, '');
+    //   setResults(formattedText);
+    // });
+  }, [airports]);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <SelectAirport
+        value={airports.outbound}
+        onChange={(e) => selectAirport(e, 'outbound')} 
+      />
+      <SelectAirport
+        value={airports.return}
+        onChange={(e) => selectAirport(e, 'return')} 
+      />
+    </>
   );
 }
 
