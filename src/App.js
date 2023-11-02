@@ -16,14 +16,14 @@ function App() {
   useEffect(() => {
     if (airports.outbound === '' || airports.return === '') return;
 
-    // fetch(`/api/v1/fares/${airports.outbound}/${airports.return}`)
-    // .then((res) => {
-    //   return res.text();
-    // })
-    // .then((data) => {
-    //   const formattedText = data.replace(/\\n/g, '<br>').replace(/"/g, '');
-    //   setResults(formattedText);
-    // });
+    fetch(`/api/v1/fares/${airports.outbound}/${airports.return}`)
+    .then((res) => {
+      return res.text();
+    })
+    .then((data) => {
+      const formattedText = data.replace(/\\n/g, '<br>').replace(/"/g, '');
+      setResults(formattedText);
+    });
   }, [airports]);
 
   return (
@@ -36,6 +36,7 @@ function App() {
         value={airports.return}
         onChange={(e) => selectAirport(e, 'return')} 
       />
+      <div dangerouslySetInnerHTML={{ __html: results }}></div>
     </>
   );
 }
