@@ -1,8 +1,8 @@
 function SelectAirport(props) {
   return (
-    <>
+    <div className="select-wrapper">
         <select value={props.value} onChange={props.onChange}>
-          <option value="0" defaultValue hidden>Choose here</option>
+          <option value="0" defaultValue hidden disabled>Select</option>
           <option>Auckland</option>
           <option>Blenheim</option>
           <option>Christchurch</option>
@@ -25,7 +25,7 @@ function SelectAirport(props) {
           <option>Wellington</option>
           <option>Whangarei</option>
         </select>
-    </>
+    </div>
   );
 }
 
