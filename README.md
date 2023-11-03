@@ -1,70 +1,53 @@
-# Getting Started with Create React App
+# Weekend Fare Finder
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This is a Node.js application that serves as a simple API for fetching flight fares between two New Zealand airports. It uses the Express framework to handle HTTP requests and fetches data from the [grabaseat.co.nz](https://grabaseat.co.nz/) website's low fare finder API.
 
-## Available Scripts
+## How It Works
 
-In the project directory, you can run:
+This API exposes a single endpoint `/v1/fares/:depart/:return` where `:depart` and `:return` are placeholders for departure and return airport codes. The API uses a predefined dictionary (`airportDict`) to map human-readable city names to IATA airport codes.
 
-### `npm start`
+- **Example Request**: `/v1/fares/wellington/timaru`
+- **Example Response**:
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+> **Fly to Timaru : Return to Wellington : Price**
+>
+> Fri Dec 08 2023 : Sun Dec 10 2023 : $158   
+> Fri Jan 19 2024 : Sun Jan 21 2024 : $148
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+The API performs the following steps when a request is made:
 
-### `npm test`
+1. It checks if the provided airport codes are valid. If either the departure or return airport is not in the dictionary, it returns a 400 Bad Request response with an error message.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+2. It makes two HTTP requests to the `grabaseat.co.nz` API to fetch low fare data for both the outbound and return flights. The API queries are made with the airport codes, and the results are fetched asynchronously.
 
-### `npm run build`
+3. It processes the data received from both API calls to find round-trip flights departing on a Friday and returning on a Sunday. It then calculates the total fare for these valid flights.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+4. The API responds with a formatted list of flight options, including the departure date, return date, and the total price for each valid flight.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## How to Use
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+1. Clone this repository.
 
-### `npm run eject`
+2. Install the required packages:
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+```bash
+npm install
+```
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+3. Start the server:
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+```bash
+npm start
+```
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+4. Make GET requests to the /v1/fares/:depart/:return endpoint with the desired departure and return airports. Replace :depart and :return with the airport codes or city names.
 
-## Learn More
+## Integration with Apple Shortcuts  
+This API can be integrated with Apple Shortcuts to allow you to quickly query flight fares and display the results on your phone. Below is a custom Apple Shortcut that sends GET requests to the /v1/fares/:depart/:return endpoint, and then displays the results in a user-friendly format on your device. Outbound and return cities can be changed within the Shortcut.
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+[WeekendFareFinder Shortcut](https://www.icloud.com/shortcuts/bbc07573d80a4174b3006afa66be5947)  
+![Shortcut screenshot 1](/screenshots/1.jpg)  ![Shortcut screenshot 2](/screenshots/2.jpg)  ![Shortcut screenshot 3](/screenshots/3.jpg)  ![Shortcut screenshot 4](/screenshots/4.jpg)
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+## Disclaimer  
 
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+This code is provided as-is for educational purposes and may require updates or modifications to work correctly in a production environment.
