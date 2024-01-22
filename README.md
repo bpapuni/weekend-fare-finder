@@ -16,7 +16,7 @@ WeekendFareFinder is a web application that helps you find the best flight deals
 ## Integration with Apple Shortcuts  
 This API can be integrated with Apple Shortcuts to allow you to quickly query flight fares and display the results on your phone. Below is a custom Apple Shortcut that sends GET requests to the /v1/fares/:outbound/:return endpoint, and then displays the results in a user-friendly format on your device. Outbound and return cities can be changed within the Shortcut.
 
-[WeekendFareFinder Shortcut](https://www.icloud.com/shortcuts/bbc07573d80a4174b3006afa66be5947)  
+[WeekendFareFinder Shortcut](https://www.icloud.com/shortcuts/6403710832e5412c9fdc850c21a3bc7a)  
 ![Shortcut screenshot 1](/screenshots/1.jpg)  ![Shortcut screenshot 2](/screenshots/2.jpg)  ![Shortcut screenshot 3](/screenshots/3.jpg)  ![Shortcut screenshot 4](/screenshots/4.jpg)
 
 ## Technology Stack
